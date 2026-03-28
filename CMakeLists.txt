@@ -13,20 +13,22 @@ endif ()
 
 # Paths
 set(PLUGIN_API_DIR ${CMAKE_SOURCE_DIR}/PluginAPI)
-
+set(NVAPI_DIR ${CMAKE_SOURCE_DIR}/External/NVAPI)
 
 add_library(UnityPlugin SHARED
         src/Plugin.h
         src/Plugin.cpp
+        src/Plugin.def
 )
 
 target_include_directories(UnityPlugin
         PRIVATE
         ${PLUGIN_API_DIR}
+        ${NVAPI_DIR}
 )
 
-
-
+target_link_directories(UnityPlugin PRIVATE ${NVAPI_DIR}/amd64)
+target_link_libraries(UnityPlugin PRIVATE nvapi64)
 
 if (WIN32)
     set_target_properties(UnityPlugin PROPERTIES
