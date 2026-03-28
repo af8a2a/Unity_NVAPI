@@ -34,25 +34,22 @@ Output DLL: `build/bin/Release/UnityPlugin.dll`
 
 ## Usage in Unity
 
-### 1. Deploy the Plugin
+### 1. Deploy Files
 
-Copy `UnityPlugin.dll` to your Unity project's `Assets/Plugins/x86_64/` folder.
+1. Copy `build/bin/Release/UnityPlugin.dll` to `Assets/Plugins/x86_64/`.
+2. Copy `Runtime/NvApiSer.cs` to your Unity project (e.g. `Assets/Scripts/NVAPI/`).
 
-### 2. C# Interop
+### 2. C# Usage
 
 ```csharp
-using System.Runtime.InteropServices;
+using NVAPI;
 
-public static class NVAPI_SER
+// Check SER support
+if (NvApiSer.NvAPI_IsShaderExecutionReorderingAPISupported() &&
+    NvApiSer.NvAPI_IsShaderExecutionReorderingSupportedByGPU())
 {
-    [DllImport("UnityPlugin")]
-    public static extern bool NvAPI_IsShaderExecutionReorderingAPISupported();
-
-    [DllImport("UnityPlugin")]
-    public static extern bool NvAPI_IsShaderExecutionReorderingSupportedByGPU();
-
-    [DllImport("UnityPlugin")]
-    public static extern bool NvAPI_SetNvShaderExtnSlot(uint uavSlot);
+    // Set the UAV slot matching your shader's NV_SHADER_EXTN_SLOT
+    NvApiSer.NvAPI_SetNvShaderExtnSlot(7);
 }
 ```
 
