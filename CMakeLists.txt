@@ -32,7 +32,7 @@ target_link_libraries(UnityPlugin PRIVATE nvapi64)
 
 if (WIN32)
     set_target_properties(UnityPlugin PROPERTIES
-            OUTPUT_NAME "UnityPlugin"
+            OUTPUT_NAME "Unity_NVAPI"
             RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
             LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
             ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
